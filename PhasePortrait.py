@@ -3,13 +3,16 @@ import matplotlib.pyplot as plt
 
 # Returns the equations from the book by Strogatz
 def strogatz(Y):
-    a = 1
-    b = 1
+    a = 10
+    b = 2
     x, y = Y
     return np.array([a - x - 4 * x * y / (1+ x*x), b * x * (1 - y / (1 + x*x))])
 # Creates a meshgrid
-x = np.linspace(0, 1, 20)
-y = np.linspace(0, 1, 20)
+xaxis = 5
+yaxis = 10
+
+x = np.linspace(0, xaxis, 20)
+y = np.linspace(0, yaxis, 20)
 X, Y = np.meshgrid(x, y)
 ver = np.zeros(Y.shape)
 hor = np.zeros(Y.shape)
@@ -28,15 +31,15 @@ Q = plt.quiver(X, Y, hor, ver, color='r')
 
 plt.xlabel('$x$')
 plt.ylabel('$y$')
-plt.xlim([0, 1])
-plt.ylim([0, 1])
+plt.xlim([0, xaxis])
+plt.ylim([0, yaxis])
 
 # initial values [x0,y0] and t0
 y0 = np.array([0,0])
 #t = 0
 # Runge-Kutta method to solve paths
-h = 0.1 # step size
-steps = 100
+h = 0.01 # step size
+steps = 10000
 Y = np.zeros((steps, 2))
 Y[1, :] = y0
 for i in range(steps - 1):
