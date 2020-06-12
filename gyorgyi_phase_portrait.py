@@ -41,6 +41,8 @@ for h in range(l):
             z_values[i, j] = uv[1]
     plt.quiver(X, Y, x_values, z_values, color=colors[h])
 plt.plot(sol.y[0, :], sol.y[1, :])
+plt.xlabel("X")
+plt.ylabel("Z")
 plt.show()
 
 # Calculates and plots the X-V phase portrait
@@ -61,6 +63,8 @@ for h in range(l):
             v_values[i, j] = uv[2]
     plt.quiver(X, Y, x_values, v_values, color=colors[h])
 plt.plot(sol.y[0, :], sol.y[2, :])
+plt.xlabel("X")
+plt.ylabel("V")
 plt.show()
 
 # Calculates and plots the Z-V phase portrait
@@ -80,4 +84,6 @@ for h in range(l):
             v_values[i, j] = uv[2]
     plt.quiver(X, Y, z_values, v_values, color=colors[h])
 plt.plot(np.abs(sol.y[1, :]), np.abs(sol.y[2, :]))
+plt.xlabel("Z")
+plt.ylabel("V")
 plt.show()
