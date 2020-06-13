@@ -53,7 +53,7 @@ z = []
 v = []
 
 for k in range (0,n_itr-1):
-    np.append(x[], sol_x[k])
-    np.append(z[], sol_z[k])
-    np.append(v[], sol_v[k])
+    np.append(x, sol_x[k])
+    np.append(z, sol_z[k])
+    np.append(v, sol_v[k])
 
