@@ -33,20 +33,28 @@ def est_lyapunov(kf, noise_level):
     u = np.array([x0, z0, v0])
     v = np.array([x0 + diff, z0, v0])
 
+    gf = GyorgyiFieldModel(kf)
+
+    solver_u = DOP853(gf.rhs, 0, u, dt, atol=tol, rtol=tol)
+    solver_v = DOP853(gf.rhs, 0, v, dt, atol=tol, rtol=tol)
     for i in range(0, nbr_itr):
 
         flow_diff = np.random.normal(loc=0, scale=noise_level)
-        gf = GyorgyiFieldModel(kf + kf * flow_diff)
+        gf.kf = kf + kf * flow_diff
 
-        solver = DOP853(gf.rhs, 0, u, dt, atol=tol, rtol=tol)
-        while solver.status == "running":
-            solver.step()
-        u = solver.y
+        solver_u.y = u
+        solver_u.t_bound = (i + 1) * dt
+        solver_u.status = "running"
+        while solver_u.status == "running":
+            solver_u.step()
+        u = solver_u.y
 
-        solver = DOP853(gf.rhs, 0, v, dt, atol=tol, rtol=tol)
-        while solver.status == "running":
-            solver.step()
-        v = solver.y
+        solver_v.y = v
+        solver_v.t_bound = (i + 1) * dt
+        solver_v.status = "running"
+        while solver_v.status == "running":
+            solver_v.step()
+        v = solver_v.y
 
         delta = v - u
         d = np.linalg.norm(delta)
