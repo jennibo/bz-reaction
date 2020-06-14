@@ -17,6 +17,7 @@ noise_level = 0.001
 
 
 def est_lyapunov(kf, noise_level):
+    # T = 1
     T = 10
     x0 = 0.05
     z0 = 9.0
